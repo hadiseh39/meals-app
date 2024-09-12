@@ -10,23 +10,28 @@ class MealDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeal = ref.watch(favoritesMealsProvider);
+
+    final isFavorite = favoriteMeal.contains(meal);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         actions: [
           IconButton(
-              onPressed: () {
-                final wasAdded = ref
-                    .read(favoritesMealsProvider.notifier)
-                    .toggleMealFavoriteStatus(meal);
-                ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(wasAdded ? 'removed' : 'added'),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.favorite)),
+            onPressed: () {
+              final wasAdded = ref
+                  .read(favoritesMealsProvider.notifier)
+                  .toggleMealFavoriteStatus(meal);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(wasAdded ? 'removed' : 'added'),
+                ),
+              );
+            },
+            icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+          ),
         ],
       ),
       body: SingleChildScrollView(
