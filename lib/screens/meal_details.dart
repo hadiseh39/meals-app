@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tab_container/tab_container.dart';
 import 'package:meals/models/meal.dart';
 import 'package:meals/provider/favorites_provider.dart';
 
@@ -11,7 +12,6 @@ class MealDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favoriteMeal = ref.watch(favoritesMealsProvider);
-
     final isFavorite = favoriteMeal.contains(meal);
 
     return Scaffold(
@@ -45,50 +45,85 @@ class MealDetails extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              meal.imageUrl,
-              height: 300,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(
-              width: 14,
-            ),
-            Text(
-              'ingredients',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            for (final ingredient in meal.ingredients)
-              Text(
-                ingredient,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
+            Hero(
+              tag: meal.id,
+              child: Image.network(
+                meal.imageUrl,
+                height: 300,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              'steps',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
             ),
             const SizedBox(
-              height: 10,
+              height: 7,
             ),
-            for (final steps in meal.steps)
-              Text(
-                steps,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.onSurface,
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: TabContainer(
+                tabEdge: TabEdge.top,
+                tabsStart: 0.05,
+                tabsEnd: 0.9,
+                borderRadius: BorderRadius.circular(15),
+                tabBorderRadius: BorderRadius.circular(15),
+                childPadding: const EdgeInsets.all(20.0),
+                selectedTextStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
+                unselectedTextStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.0,
+                ),
+                colors: [
+                  Theme.of(context).colorScheme.onSecondary,
+                  Theme.of(context).colorScheme.onPrimary,
+                ],
+                tabs: const [
+                  Text('ingredients'),
+                  Text('steps'),
+                ],
+                children: [
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.9,
+                    child: Column(
+                      children: [
+                        for (final ingredient in meal.ingredients)
+                          Text(
+                            ingredient,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                          ),
+                      ],
                     ),
-              )
+                  ),
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.9,
+                    child: Column(
+                      children: [
+                        for (final steps in meal.steps)
+                          Text(
+                            steps,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
