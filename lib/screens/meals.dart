@@ -39,7 +39,7 @@ class MealsScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'No meals found.',
+            'No meal found.',
             style: Theme.of(context)
                 .textTheme
                 .headlineLarge!
