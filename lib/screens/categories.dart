@@ -24,7 +24,6 @@ class _CategoriesScreenState extends State<CategoriesScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _animationController = AnimationController(
