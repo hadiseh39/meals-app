@@ -90,7 +90,7 @@ class MealItem extends StatelessWidget {
                           label: affordabilityText,
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
