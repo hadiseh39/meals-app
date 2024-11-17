@@ -20,6 +20,7 @@ class FilterCheck extends StatelessWidget {
             ),
       title: Text(
         text,
+        style: const TextStyle(fontSize: 15),
         overflow: TextOverflow.ellipsis,
       ),
     );

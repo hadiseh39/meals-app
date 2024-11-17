@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals/widgets/meal_filter_check.dart';
@@ -60,7 +59,7 @@ class MealDetails extends ConsumerWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +87,7 @@ class MealDetails extends ConsumerWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             Row(
               children: [
